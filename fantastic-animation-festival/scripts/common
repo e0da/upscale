@@ -1,0 +1,31 @@
+#!/bin/bash -ex
+
+export MODEL='realesrgan-x4plus'
+export SCALE='4.5' # 4.5 x 480 = 2160 (4K)
+export FPS='23.98'
+
+export NAME='fantastic-animation-festival'
+
+export TMP_DIR='./tmp'
+
+export VIDEO="$NAME.webm"
+export OUTPUT='./output'
+
+export SRC_DIR='./source'
+export SRC_VIDEO="$SRC_DIR/$VIDEO"
+
+export ESRGAN_DIR='realesrgan-ncnn-vulkan-20220424-macos'
+export NCNN="${ESRGAN_DIR}/realesrgan-ncnn-vulkan"
+
+export FFMPEG='ffmpeg'
+
+export EXTRACTED_FRAMES="./$TMP_DIR/extracted_frames"
+export ENHANCED_FRAMES="./$TMP_DIR/enhanced_frames"
+export JOINED_FRAMES="./$TMP_DIR/joined_frames"
+
+mkdir -p \
+    "$TMP_DIR" \
+    "$OUTPUT" \
+    "$EXTRACTED_FRAMES" \
+    "$ENHANCED_FRAMES" \
+    "$JOINED_FRAMES"

@@ -1,0 +1,4 @@
+#!/bin/bash -ex
+
+# join frames in "$ENHANCED_FRAMES" with ffmpeg
+echo 'doesnt werk'

@@ -1,0 +1,5 @@
+#!/bin/bash -ex
+
+. "$(dirname "$0")/common"
+
+"$FFMPEG" -i "$SRC_VIDEO" "$EXTRACTED_FRAMES/$NAME-%04d.png"
