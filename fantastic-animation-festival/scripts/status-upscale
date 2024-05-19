@@ -17,5 +17,5 @@ ellapsed_f=$(gdate -u -d @$ellapsed_time +"%T")
 remaining_f=$(gdate -u -d @"$remaining_time" +"%T")
 
 # Print the formatted progress
-printf "  %06d / %06d   - %7.4f %%\n" "$n_en" "$n_ex" "$percentage"
-printf "%s / %s @  %6.4f fps\n" "$ellapsed_f" "$remaining_f" "$fps"
+printf "   %06d / %06d   - %7.4f %%\n" "$n_en" "$n_ex" "$percentage"
+printf " %s / %s @  %6.4f fps\n" "$ellapsed_f" "$remaining_f" "$fps"
