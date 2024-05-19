@@ -1,6 +1,5 @@
 #!/bin/bash -ex
 
-# shellcheck source=scripts/common
 . "$(dirname "$0")/common"
 
 "$FFMPEG" -i "$SRC_VIDEO" "$EXTRACTED_FRAMES/$NAME-%07d.png"
