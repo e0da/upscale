@@ -11,11 +11,12 @@ age_of_oldest_enhanced_file=$(stat -f "%m" "$(find "$ENHANCED_FRAMES" -type f -d
 age_of_newest_enhanced_file=$(stat -f "%m" "$(find "$ENHANCED_FRAMES" -type f -depth 1 -prune | sort -n | tail -n 1)")
 ellapsed_time=$(( age_of_newest_enhanced_file - age_of_oldest_enhanced_file ))
 fps=$(echo "scale=6; $n_en / $ellapsed_time" | bc)
+spf=$(echo "scale=6; 1 / $fps" | bc)
 remaining_time=$(echo "scale=6; ($n_ex - $n_en) / $fps" | bc)
 
 ellapsed_f=$(gdate -u -d @$ellapsed_time +"%T")
 remaining_f=$(gdate -u -d @"$remaining_time" +"%T")
 
 # Print the formatted progress
-printf "   %06d / %06d   - %7.4f %%\n" "$n_en" "$n_ex" "$percentage"
-printf " %s / %s @  %6.4f fps\n" "$ellapsed_f" "$remaining_f" "$fps"
+printf "  %06d / %06d   = %7.4f %%\n" "$n_en" "$n_ex" "$percentage"
+printf "%s / %s @ %6.4f spf\n" "$ellapsed_f" "$remaining_f" "$spf"
