@@ -1,0 +1,17 @@
+#!/bin/bash
+
+# shellcheck source=scripts/common
+. "$(dirname "$0")/common"
+
+n_ex=$(find "$EXTRACTED_FRAMES" -type f -depth 1 -prune | wc -l | awk '{print $1}')
+n_en=$(find "$ENHANCED_FRAMES" -type f -depth 1 -prune | wc -l | awk '{print $1}')
+
+percentage=$(echo "scale=4; ($n_en / $n_ex) * 100" | bc)
+
+# Check if the first character is a dot and prepend a zero if necessary
+if [[ $percentage == .* ]]; then
+  percentage="0$percentage"
+fi
+
+# Print the formatted progress
+printf "Progress: %07.4f%% (%07d / %07d)\n" "$percentage" "$n_en" "$n_ex"

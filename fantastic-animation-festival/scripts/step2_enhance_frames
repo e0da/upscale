@@ -1,5 +1,6 @@
 #!/bin/bash -ex
 
+# shellcheck source=scripts/common
 . "$(dirname "$0")/common"
 
 WORKDIR="$(dirname "$0")"
