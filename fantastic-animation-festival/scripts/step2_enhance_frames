@@ -2,8 +2,13 @@
 
 . "$(dirname "$0")/common"
 
-"$NCNN" \
-    -s "$SCALE" \
-    -n "$MODEL" \
-    -i "$EXTRACTED_FRAMES" \
-    -o "$ENHANCED_FRAMES"
+WORKDIR="$(dirname "$0")"
+
+(
+    cd "$WORKDIR" && \
+        "$NCNN" \
+            -i "$EXTRACTED_FRAMES" \
+            -o "$ENHANCED_FRAMES" \
+            -s "$SCALE" \
+            -n "$MODEL"
+)

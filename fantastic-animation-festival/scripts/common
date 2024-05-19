@@ -14,7 +14,7 @@ export OUTPUT='./output'
 export SRC_DIR='./source'
 export SRC_VIDEO="$SRC_DIR/$VIDEO"
 
-export ESRGAN_DIR='realesrgan-ncnn-vulkan-20220424-macos'
+export ESRGAN_DIR='../realesrgan-ncnn-vulkan-20220424-macos'
 export NCNN="${ESRGAN_DIR}/realesrgan-ncnn-vulkan"
 
 export FFMPEG='ffmpeg'
