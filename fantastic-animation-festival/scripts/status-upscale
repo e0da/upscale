@@ -8,10 +8,5 @@ n_en=$(find "$ENHANCED_FRAMES" -type f -depth 1 -prune | wc -l | awk '{print $1}
 
 percentage=$(echo "scale=6; ($n_en / $n_ex) * 100" | bc)
 
-# Check if the first character is a dot and prepend a zero if necessary
-if [[ $percentage == .* ]]; then
-  percentage="0$percentage"
-fi
-
 # Print the formatted progress
-printf " %07.4f%% (%06d / %06d)\n" "$percentage" "$n_en" "$n_ex"
+printf " %6.4f%% (%06d / %06d)\n" "$percentage" "$n_en" "$n_ex"
