@@ -7,15 +7,27 @@ n_en=$(find "$ENHANCED_FRAMES" -type f -depth 1 -prune | wc -l | awk '{print $1}
 
 percentage=$(echo "scale=6; ($n_en / $n_ex) * 100" | bc)
 
-age_of_oldest_enhanced_file=$(stat -f "%m" "$(find "$ENHANCED_FRAMES" -type f -depth 1 -prune | sort -n | head -n 1)")
-age_of_newest_enhanced_file=$(stat -f "%m" "$(find "$ENHANCED_FRAMES" -type f -depth 1 -prune | sort -n | tail -n 1)")
+age_of_oldest_enhanced_file=$(stat -f "%m" "$(find "$ENHANCED_FRAMES" -type f -maxdepth 1 | sort -n | head -n 1)")
+age_of_newest_enhanced_file=$(stat -f "%m" "$(find "$ENHANCED_FRAMES" -type f -maxdepth 1 | sort -n | tail -n 1)")
 ellapsed_time=$(( age_of_newest_enhanced_file - age_of_oldest_enhanced_file ))
 fps=$(echo "scale=6; $n_en / $ellapsed_time" | bc)
 spf=$(echo "scale=6; 1 / $fps" | bc)
-remaining_time=$(echo "scale=6; ($n_ex - $n_en) / $fps" | bc)
+remaining_time=$(echo "scale=6; ($n_ex - $n_en) * $spf" | bc)
 
-ellapsed_f=$(gdate -u -d @$ellapsed_time +"%T")
-remaining_f=$(gdate -u -d @"$remaining_time" +"%T")
+# Function to convert seconds to days, hours, minutes, seconds
+convert_seconds() {
+    local total_seconds=$1
+    local days=$((total_seconds / 86400))
+    local hours=$(( (total_seconds % 86400) / 3600 ))
+    local minutes=$(( (total_seconds % 3600) / 60 ))
+    printf "%02d:%02d:%02d\n" $days $hours $minutes
+}
+
+# Truncate the decimal part for the conversion function
+remaining_time_truncated=$(printf "%.0f" "$remaining_time")
+
+ellapsed_f=$(convert_seconds "$ellapsed_time")
+remaining_f=$(convert_seconds "$remaining_time_truncated")
 
 # Print the formatted progress
 printf "  %06d / %06d   = %7.4f %%\n" "$n_en" "$n_ex" "$percentage"
