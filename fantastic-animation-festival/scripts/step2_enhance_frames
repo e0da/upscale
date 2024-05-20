@@ -2,13 +2,11 @@
 
 . "$(dirname "$0")/common"
 
-WORKDIR="$(dirname "$0")"
-
-(
-    cd "$WORKDIR" && \
+date && time (
+    cd "$ESRGAN_DIR" && \
         "$NCNN" \
             -i "$EXTRACTED_FRAMES" \
             -o "$ENHANCED_FRAMES" \
             -s "$SCALE" \
             -n "$MODEL"
-)
+) ; date
