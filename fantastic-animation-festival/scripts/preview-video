@@ -1,0 +1,15 @@
+#!/bin/bash
+
+. "$(dirname "$0")/common"
+
+# shellcheck disable=2162
+find "$ENHANCED_FRAMES" -type f | sort -n | while read frame; do
+    start=$(gdate +%s%3N)
+    viu "$frame"
+    end=$(gdate +%s%3N)
+    duration=$((end - start))
+    sleep_time=$(echo "scale=6; (1.0 / 23.98) - ($duration / 1000)" | bc)
+    if (( $(echo "$sleep_time > 0" | bc -l) )); then
+        sleep "$sleep_time"
+    fi
+done
